@@ -1,0 +1,68 @@
+
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "applicationId": { "type": "string" },
+        "role": { "type": "string", "enum": ["user", "admin"] },
+        "emailVerified": { "type": "boolean" },
+        "lastActive": { "type": "string", "format": "date-time" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "applicationId"]
+    },
+    "Application": {
+      "title": "Application",
+      "description": "Visa application or guide request",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "countryId": { "type": "string" },
+        "visaId": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "paid", "qualified", "not-qualified"] },
+        "type": { "type": "string", "enum": ["eligibility", "guide"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "paymentId": { "type": "string" },
+        "formData": { "type": "object" }
+      },
+      "required": ["userId", "countryId", "visaId", "status", "type"]
+    },
+    "Payment": {
+      "title": "Payment",
+      "description": "Payment transaction record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "amount": { "type": "number" },
+        "currency": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "completed", "failed"] },
+        "type": { "type": "string", "enum": ["eligibility", "guide"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "amount", "status", "type"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/applications/{applicationId}": {
+      "schema": "Application",
+      "description": "Visa applications and guides"
+    },
+    "/payments/{paymentId}": {
+      "schema": "Payment",
+      "description": "Payment records"
+    }
+  }
+}

@@ -1,0 +1,87 @@
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ===============================================================
+    // Assumed Data Model
+    // ===============================================================
+    //
+    // Collection: users
+    // Fields: uid, email, displayName, applicationId, role, createdAt
+    //
+    // Collection: applications
+    // Fields: id, userId, countryId, visaId, status, type, createdAt, updatedAt, paymentId, formData
+    //
+    // Collection: payments
+    // Fields: id, userId, amount, currency, status, type, createdAt
+    //
+    // ===============================================================
+
+    // Helper Functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && 
+        (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin' ||
+         (request.auth.token.email == "rogershep101@gmail.com" && request.auth.token.email_verified == true));
+    }
+
+    function isValidUser(data) {
+      return data.keys().hasAll(['uid', 'email', 'applicationId']) &&
+             data.uid is string &&
+             data.email is string &&
+             data.applicationId is string &&
+             data.applicationId.size() >= 10 &&
+             (!('role' in data) || data.role in ['user', 'admin']) &&
+             (!('emailVerified' in data) || data.emailVerified is bool) &&
+             (!('lastActive' in data) || data.lastActive is timestamp);
+    }
+
+    function isValidApplication(data) {
+      return data.keys().hasAll(['userId', 'countryId', 'visaId', 'status', 'type']) &&
+             data.userId is string &&
+             data.countryId is string &&
+             data.visaId is string &&
+             data.status in ['pending', 'paid', 'qualified', 'not-qualified'] &&
+             data.type in ['eligibility', 'guide'];
+    }
+
+    function isValidPayment(data) {
+      return data.keys().hasAll(['userId', 'amount', 'status', 'type']) &&
+             data.userId is string &&
+             data.amount is number &&
+             data.status in ['pending', 'completed', 'failed'] &&
+             data.type in ['eligibility', 'guide'];
+    }
+
+    // Rules
+    match /users/{userId} {
+      allow read: if isOwner(userId) || isAdmin();
+      allow create: if isAuthenticated() && isOwner(userId) && isValidUser(request.resource.data) && (request.resource.data.role == 'user' || isAdmin());
+      allow update: if isOwner(userId) && isValidUser(request.resource.data) && (request.resource.data.role == resource.data.role || isAdmin());
+    }
+
+    match /applications/{applicationId} {
+      allow read: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if isAuthenticated() && request.resource.data.userId == request.auth.uid && isValidApplication(request.resource.data);
+      allow update: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin()) && isValidApplication(request.resource.data);
+    }
+
+    match /payments/{paymentId} {
+      allow read: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if isAuthenticated() && request.resource.data.userId == request.auth.uid && isValidPayment(request.resource.data);
+      allow update: if isAdmin();
+    }
+
+    // Default deny
+    match /{path=**} {
+      allow read, write: if false;
+    }
+  }
+}
