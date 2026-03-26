@@ -30,6 +30,9 @@ import VisaDetail from "./pages/VisaDetail";
 import Checkout from "./pages/Checkout";
 import Dashboard from "./pages/Dashboard";
 import Auth from "./pages/Auth";
+import Countries from "./pages/Countries";
+import Guides from "./pages/Guides";
+import CountryGuides from "./pages/CountryGuides";
 import Chatbot from "./components/Chatbot";
 
 function Navbar() {
@@ -62,8 +65,8 @@ function Navbar() {
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-8">
           <Link to="/" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Home</Link>
-          <Link to="/#countries" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Countries</Link>
-          <Link to="/#guides" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Guides</Link>
+          <Link to="/countries" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Countries</Link>
+          <Link to="/guides" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Guides</Link>
           <Link to="/dashboard" className="flex items-center gap-2 px-4 py-2 bg-slate-900 text-white rounded-full text-sm font-medium hover:bg-slate-800 transition-all">
             <UserIcon className="w-4 h-4" />
             Dashboard
@@ -89,7 +92,8 @@ function Navbar() {
             className="absolute top-full left-0 right-0 bg-white border-t border-slate-100 p-6 flex flex-col gap-4 md:hidden shadow-xl"
           >
             <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-slate-900">Home</Link>
-            <Link to="/#countries" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-slate-900">Countries</Link>
+            <Link to="/countries" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-slate-900">Countries</Link>
+            <Link to="/guides" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-slate-900">Guides</Link>
             <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-slate-900">Dashboard</Link>
           </motion.div>
         )}
@@ -118,7 +122,8 @@ function Footer() {
           <h4 className="font-bold text-slate-900 mb-6">Quick Links</h4>
           <ul className="space-y-4">
             <li><Link to="/" className="text-slate-500 hover:text-blue-600 transition-colors">Home</Link></li>
-            <li><Link to="/#countries" className="text-slate-500 hover:text-blue-600 transition-colors">Countries</Link></li>
+            <li><Link to="/countries" className="text-slate-500 hover:text-blue-600 transition-colors">Countries</Link></li>
+            <li><Link to="/guides" className="text-slate-500 hover:text-blue-600 transition-colors">Guides</Link></li>
             <li><Link to="/dashboard" className="text-slate-500 hover:text-blue-600 transition-colors">Dashboard</Link></li>
           </ul>
         </div>
@@ -147,6 +152,9 @@ export default function App() {
         <main className="pt-20">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/countries" element={<Countries />} />
+            <Route path="/guides" element={<Guides />} />
+            <Route path="/country/:countryId/guides" element={<CountryGuides />} />
             <Route path="/country/:countryId" element={<CountryDetail />} />
             <Route path="/visa/:countryId/:visaId" element={<VisaDetail />} />
             <Route path="/checkout" element={<Checkout />} />

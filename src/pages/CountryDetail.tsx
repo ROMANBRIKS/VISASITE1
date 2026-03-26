@@ -148,7 +148,7 @@ export default function CountryDetail() {
               <div className="bg-blue-50 p-10 rounded-[2.5rem] border border-blue-100">
                 <h3 className="text-2xl font-bold text-slate-900 mb-4">Need Help?</h3>
                 <p className="text-slate-600 mb-8">
-                  Not sure which visa category fits your situation? Use our smart eligibility check or talk to our AI consultant.
+                  Not sure which visa category fits your situation? Use our smart eligibility check or talk to our consultant.
                 </p>
                 <button 
                   onClick={() => document.getElementById('visa-categories')?.scrollIntoView({ behavior: 'smooth' })}

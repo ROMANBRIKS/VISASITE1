@@ -330,7 +330,7 @@ export default function Dashboard() {
             <div className="bg-blue-50 p-10 rounded-[2.5rem] border border-blue-100">
               <h3 className="text-2xl font-bold text-slate-900 mb-4">Need Support?</h3>
               <p className="text-slate-600 mb-8 leading-relaxed">
-                Our AI consultant is available 24/7 to help you with your application questions.
+                Our consultant is available 24/7 to help you with your application questions.
               </p>
               <button 
                 onClick={() => window.dispatchEvent(new CustomEvent('open-chatbot'))}

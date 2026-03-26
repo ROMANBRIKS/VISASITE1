@@ -13,7 +13,8 @@ import {
   ChevronRight,
   Globe,
   Lock,
-  Loader2
+  Loader2,
+  Info
 } from "lucide-react";
 import { auth, db, handleFirestoreError, OperationType } from "../firebase";
 import { doc, getDoc, setDoc, serverTimestamp, updateDoc, addDoc, collection } from "firebase/firestore";
@@ -412,7 +413,22 @@ export default function Checkout() {
                         </li>
                         <li className="flex gap-3 text-slate-600">
                           <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center text-xs font-bold border border-slate-200 shrink-0">2</div>
-                          Complete the official government application form.
+                          <div>
+                            <p className="font-bold text-slate-900">Complete the official government application form.</p>
+                            {country.id === 'united-states' && (
+                              <p className="text-sm mt-1">
+                                {visa.id === 'family-marriage' || visa.id === 'permanent-worker' ? (
+                                  "You will need to complete the DS-260 Immigrant Visa Electronic Application. Note: You typically need a Case Number and Invoice I.D. from the NVC."
+                                ) : visa.id === 'visa-waiver-esta' ? (
+                                  "Complete the ESTA (Electronic System for Travel Authorization) form."
+                                ) : visa.id === 'diversity-visa' ? (
+                                  "Register on the official DV Program website during the open window (usually Oct/Nov)."
+                                ) : (
+                                  "Complete the DS-160 Online Nonimmigrant Visa Application. You will select your interview location and start a new application."
+                                )}
+                              </p>
+                            )}
+                          </div>
                         </li>
                         <li className="flex gap-3 text-slate-600">
                           <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center text-xs font-bold border border-slate-200 shrink-0">3</div>
@@ -420,6 +436,35 @@ export default function Checkout() {
                         </li>
                       </ul>
                     </div>
+
+                    {country.id === 'united-states' && (visa.id === 'temporary-work' || visa.id === 'permanent-worker' || visa.id === 'family-marriage') && (
+                      <div className="mb-12 p-8 bg-blue-50 rounded-[2.5rem] border border-blue-100 text-left">
+                        <h3 className="font-bold text-blue-900 mb-3 flex items-center gap-2 text-lg">
+                          <Info className="w-6 h-6" />
+                          Petitions & USCIS
+                        </h3>
+                        <p className="text-sm text-blue-800 leading-relaxed mb-6">
+                          For this category, a sponsor must first file a petition with U.S. Citizenship and Immigration Services (USCIS). Once approved, you can proceed with the visa application.
+                        </p>
+                        <div className="flex flex-wrap gap-3">
+                          {visa.id === 'temporary-work' && (
+                            <a href="https://www.uscis.gov/i-129" target="_blank" rel="noopener noreferrer" className="px-5 py-3 bg-white border border-blue-200 rounded-2xl text-sm font-bold text-blue-600 hover:bg-blue-100 transition-all flex items-center gap-2 shadow-sm">
+                              Form I-129 (Temporary Worker) <ExternalLink className="w-4 h-4" />
+                            </a>
+                          )}
+                          {visa.id === 'permanent-worker' && (
+                            <a href="https://www.uscis.gov/i-140" target="_blank" rel="noopener noreferrer" className="px-5 py-3 bg-white border border-blue-200 rounded-2xl text-sm font-bold text-blue-600 hover:bg-blue-100 transition-all flex items-center gap-2 shadow-sm">
+                              Form I-140 (Permanent Worker) <ExternalLink className="w-4 h-4" />
+                            </a>
+                          )}
+                          {visa.id === 'family-marriage' && (
+                            <a href="https://www.uscis.gov/i-130" target="_blank" rel="noopener noreferrer" className="px-5 py-3 bg-white border border-blue-200 rounded-2xl text-sm font-bold text-blue-600 hover:bg-blue-100 transition-all flex items-center gap-2 shadow-sm">
+                              Form I-130 (Family Petition) <ExternalLink className="w-4 h-4" />
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    )}
 
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                       <a 

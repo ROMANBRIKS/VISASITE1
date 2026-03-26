@@ -407,8 +407,13 @@ export default function Home() {
               <h2 className="text-4xl font-bold text-slate-900 mb-4">Explore Destinations</h2>
               <p className="text-slate-500 text-lg">We support 16 major countries with specialized visa guidance.</p>
             </div>
-            <div className="flex gap-2">
-              <div className="px-4 py-2 bg-slate-100 rounded-full text-sm font-bold text-slate-600">All Regions</div>
+            <div className="flex gap-4">
+              <Link 
+                to="/countries"
+                className="px-6 py-2 bg-blue-600 text-white rounded-full text-sm font-bold hover:bg-blue-700 transition-all flex items-center gap-2"
+              >
+                View All Countries <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
           </div>
 
@@ -529,12 +534,20 @@ export default function Home() {
       {/* Guides Section */}
       <section id="guides" className="px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-50 border border-green-100 text-green-600 text-xs font-bold uppercase tracking-wider mb-4">
-              Updated January 2026
+          <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-16">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-50 border border-green-100 text-green-600 text-xs font-bold uppercase tracking-wider mb-4">
+                Updated January 2026
+              </div>
+              <h2 className="text-4xl font-bold text-slate-900 mb-4">Comprehensive Visa Guides</h2>
+              <p className="text-slate-500 text-lg">Step-by-step instructions to ensure your application is perfect.</p>
             </div>
-            <h2 className="text-4xl font-bold text-slate-900 mb-4">Comprehensive Visa Guides</h2>
-            <p className="text-slate-500 text-lg">Step-by-step instructions to ensure your application is perfect.</p>
+            <Link 
+              to="/guides"
+              className="px-6 py-2 bg-blue-600 text-white rounded-full text-sm font-bold hover:bg-blue-700 transition-all flex items-center gap-2"
+            >
+              View All Guides <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
