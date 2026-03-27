@@ -1,4 +1,5 @@
 
+import React, { useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
 import SEO from "../components/SEO";
@@ -13,7 +14,7 @@ import {
 } from "lucide-react";
 import { countries } from "../data/countries";
 import { toast } from "sonner";
-import { useEffect } from "react";
+import { AdSpace } from '../components/AdSpace';
 
 export default function CountryGuides() {
   const { countryId } = useParams();
@@ -87,7 +88,12 @@ export default function CountryGuides() {
           </Link>
           
           <div className="flex items-center gap-6 mb-8">
-            <span className="text-6xl">{country.flag}</span>
+            <img 
+              src={`https://flagcdn.com/w80/${country.isoCode}.png`}
+              alt=""
+              className="w-16 h-10 object-cover rounded shadow-lg"
+              referrerPolicy="no-referrer"
+            />
             <div>
               <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
                 {country.name} <br />
@@ -121,44 +127,54 @@ export default function CountryGuides() {
         </div>
       </section>
 
+      <div className="max-w-7xl mx-auto px-6 mt-12">
+        <AdSpace type="banner" />
+      </div>
+
       {/* All Guides List */}
       <section className="px-6 mt-20">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {country.visas.map((visa) => (
-              <motion.div 
-                key={visa.id}
-                whileHover={{ y: -5 }}
-                className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm hover:shadow-xl transition-all p-10 flex flex-col"
-              >
-                <div className="flex-1">
-                  <div className="flex items-center justify-between mb-6">
-                    <h4 className="text-xl font-bold text-slate-900">{visa.name}</h4>
-                    <span className="px-3 py-1 bg-blue-50 text-[10px] font-bold text-blue-600 rounded-full uppercase tracking-wider">Guide</span>
-                  </div>
-                  <p className="text-slate-500 mb-8 leading-relaxed">
-                    {visa.description}
-                  </p>
-                  
-                  <div className="space-y-4 mb-10">
-                    <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">What's Included:</p>
-                    {visa.benefits.map((benefit, i) => (
-                      <div key={i} className="flex items-start gap-3 text-sm text-slate-600">
-                        <CheckCircle2 className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
-                        <span>{benefit}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <button 
-                  onClick={() => handleDownload(visa.name, visa.fileName)}
-                  className="w-full py-5 bg-blue-600 text-white rounded-2xl font-bold flex items-center justify-center gap-3 hover:bg-blue-700 transition-all shadow-xl shadow-blue-100 group"
+            {country.visas.map((visa, index) => (
+              <React.Fragment key={visa.id}>
+                <motion.div 
+                  whileHover={{ y: -5 }}
+                  className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm hover:shadow-xl transition-all p-10 flex flex-col"
                 >
-                  <Download className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                  Download Guide
-                </button>
-              </motion.div>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-6">
+                      <h4 className="text-xl font-bold text-slate-900">{visa.name}</h4>
+                      <span className="px-3 py-1 bg-blue-50 text-[10px] font-bold text-blue-600 rounded-full uppercase tracking-wider">Guide</span>
+                    </div>
+                    <p className="text-slate-500 mb-8 leading-relaxed">
+                      {visa.description}
+                    </p>
+                    
+                    <div className="space-y-4 mb-10">
+                      <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">What's Included:</p>
+                      {visa.benefits.map((benefit, i) => (
+                        <div key={i} className="flex items-start gap-3 text-sm text-slate-600">
+                          <CheckCircle2 className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
+                          <span>{benefit}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <button 
+                    onClick={() => handleDownload(visa.name, visa.fileName)}
+                    className="w-full py-5 bg-blue-600 text-white rounded-2xl font-bold flex items-center justify-center gap-3 hover:bg-blue-700 transition-all shadow-xl shadow-blue-100 group"
+                  >
+                    <Download className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                    Download Guide
+                  </button>
+                </motion.div>
+                {(index + 1) % 3 === 0 && index !== country.visas.length - 1 && (
+                  <div className="lg:col-span-3 my-8">
+                    <AdSpace type="banner" />
+                  </div>
+                )}
+              </React.Fragment>
             ))}
           </div>
         </div>

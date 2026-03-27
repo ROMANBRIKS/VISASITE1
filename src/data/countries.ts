@@ -13,6 +13,7 @@ export interface Country {
   id: string;
   name: string;
   flag: string;
+  isoCode: string;
   landmark: string;
   description: string;
   visas: VisaCategory[];
@@ -23,6 +24,7 @@ export const countries: Country[] = [
     id: 'united-states',
     name: 'United States',
     flag: '🇺🇸',
+    isoCode: 'us',
     landmark: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?q=80&w=1000&auto=format&fit=crop',
     description: 'The land of opportunity with diverse visa options for tourism, study, and work.',
     visas: [
@@ -363,6 +365,7 @@ export const countries: Country[] = [
     id: 'canada',
     name: 'Canada',
     flag: '🇨🇦',
+    isoCode: 'ca',
     landmark: 'https://images.unsplash.com/photo-1503614472-8c93d56e92ce?q=80&w=1000&auto=format&fit=crop',
     description: 'Known for its welcoming immigration policies and high quality of life.',
     visas: [
@@ -477,6 +480,7 @@ export const countries: Country[] = [
     id: 'germany',
     name: 'Germany',
     flag: '🇩🇪',
+    isoCode: 'de',
     landmark: 'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?q=80&w=1000&auto=format&fit=crop',
     description: 'The economic powerhouse of Europe with excellent work and study opportunities.',
     visas: [
@@ -609,6 +613,7 @@ export const countries: Country[] = [
     id: 'united-kingdom',
     name: 'United Kingdom',
     flag: '🇬🇧',
+    isoCode: 'gb',
     landmark: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=1000&auto=format&fit=crop',
     description: 'A global hub for finance, education, and culture.',
     visas: [
@@ -650,6 +655,7 @@ export const countries: Country[] = [
     id: 'france',
     name: 'France',
     flag: '🇫🇷',
+    isoCode: 'fr',
     landmark: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=1000&auto=format&fit=crop',
     description: 'The world\'s most visited country, offering rich culture and career paths.',
     visas: [
@@ -683,6 +689,7 @@ export const countries: Country[] = [
     id: 'belgium',
     name: 'Belgium',
     flag: '🇧🇪',
+    isoCode: 'be',
     landmark: 'https://images.unsplash.com/photo-1559113513-d5e09c78b9dd?q=80&w=1000&auto=format&fit=crop',
     description: 'The heart of Europe, home to the EU and NATO.',
     visas: [
@@ -708,6 +715,7 @@ export const countries: Country[] = [
     id: 'netherlands',
     name: 'Netherlands',
     flag: '🇳🇱',
+    isoCode: 'nl',
     landmark: 'https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?q=80&w=1000&auto=format&fit=crop',
     description: 'Innovative, open, and highly efficient country with great career prospects.',
     visas: [
@@ -733,6 +741,7 @@ export const countries: Country[] = [
     id: 'italy',
     name: 'Italy',
     flag: '🇮🇹',
+    isoCode: 'it',
     landmark: 'https://images.unsplash.com/photo-1529260830199-42c24126f198?q=80&w=1000&auto=format&fit=crop',
     description: 'A country of art, history, and incredible lifestyle.',
     visas: [
@@ -758,6 +767,7 @@ export const countries: Country[] = [
     id: 'spain',
     name: 'Spain',
     flag: '🇪🇸',
+    isoCode: 'es',
     landmark: 'https://images.unsplash.com/photo-1543783207-ec64e4d95325?q=80&w=1000&auto=format&fit=crop',
     description: 'Sunny climate, vibrant culture, and a growing tech scene.',
     visas: [
@@ -783,6 +793,7 @@ export const countries: Country[] = [
     id: 'portugal',
     name: 'Portugal',
     flag: '🇵🇹',
+    isoCode: 'pt',
     landmark: 'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?q=80&w=1000&auto=format&fit=crop',
     description: 'One of the safest and most affordable countries in Western Europe.',
     visas: [
@@ -808,6 +819,7 @@ export const countries: Country[] = [
     id: 'sweden',
     name: 'Sweden',
     flag: '🇸🇪',
+    isoCode: 'se',
     landmark: 'https://images.unsplash.com/photo-1509339022327-1e1e25360a41?q=80&w=1000&auto=format&fit=crop',
     description: 'Known for its social equality, innovation, and stunning nature.',
     visas: [
@@ -825,6 +837,7 @@ export const countries: Country[] = [
     id: 'south-africa',
     name: 'South Africa',
     flag: '🇿🇦',
+    isoCode: 'za',
     landmark: 'https://images.unsplash.com/photo-1580060839134-75a5edca2e99?q=80&w=1000&auto=format&fit=crop',
     description: 'The "Rainbow Nation" with diverse landscapes and opportunities.',
     visas: [
@@ -842,6 +855,7 @@ export const countries: Country[] = [
     id: 'china',
     name: 'China',
     flag: '🇨🇳',
+    isoCode: 'cn',
     landmark: 'https://images.unsplash.com/photo-1508804185872-d7badad00f7d?q=80&w=1000&auto=format&fit=crop',
     description: 'A global economic giant with deep history and rapid modernization.',
     visas: [
@@ -859,6 +873,7 @@ export const countries: Country[] = [
     id: 'russia',
     name: 'Russia',
     flag: '🇷🇺',
+    isoCode: 'ru',
     landmark: 'https://images.unsplash.com/photo-1513326738677-b964603b136d?q=80&w=1000&auto=format&fit=crop',
     description: 'The largest country in the world with unique cultural and business ties.',
     visas: [
@@ -876,6 +891,7 @@ export const countries: Country[] = [
     id: 'turkey',
     name: 'Turkey',
     flag: '🇹🇷',
+    isoCode: 'tr',
     landmark: 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?q=80&w=1000&auto=format&fit=crop',
     description: 'A bridge between Europe and Asia with a booming tourism sector.',
     visas: [
@@ -893,6 +909,7 @@ export const countries: Country[] = [
     id: 'uae',
     name: 'UAE',
     flag: '🇦🇪',
+    isoCode: 'ae',
     landmark: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1000&auto=format&fit=crop',
     description: 'A global business hub with tax-free income and luxury living.',
     visas: [

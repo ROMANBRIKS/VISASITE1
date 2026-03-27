@@ -1,4 +1,5 @@
 
+import React, { useState } from "react";
 import { motion } from "motion/react";
 import { Link, useNavigate } from "react-router-dom";
 import SEO from "../components/SEO";
@@ -13,10 +14,13 @@ import {
   Zap,
   HelpCircle
 } from "lucide-react";
-import { useState } from "react";
 import { countries } from "../data/countries";
 import { cn } from "../lib/utils";
 import { toast } from "sonner";
+
+import { AdSpace } from '../components/AdSpace';
+
+import { CinematicBanner } from "../components/CinematicBanner";
 
 export default function Guides() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -110,6 +114,8 @@ export default function Guides() {
         </div>
       </section>
 
+      <CinematicBanner />
+
       {/* Why Download Section */}
       <section className="px-6 -mt-16 relative z-20">
         <div className="max-w-7xl mx-auto">
@@ -133,6 +139,10 @@ export default function Guides() {
         </div>
       </section>
 
+      <div className="max-w-7xl mx-auto px-6 mt-12">
+        <AdSpace type="banner" />
+      </div>
+
       {/* Guides List */}
       <section className="px-6 mt-24">
         <div className="max-w-7xl mx-auto">
@@ -144,10 +154,16 @@ export default function Guides() {
           </div>
 
           <div className="space-y-12">
-            {filteredCountries.map((country) => (
-              <div key={country.id} className="space-y-6">
+            {filteredCountries.map((country, index) => (
+              <React.Fragment key={country.id}>
+                <div className="space-y-6">
                 <div className="flex items-center gap-4">
-                  <span className="text-4xl">{country.flag}</span>
+                  <img 
+                    src={`https://flagcdn.com/w80/${country.isoCode}.png`}
+                    alt=""
+                    className="w-10 h-7 object-cover rounded shadow-sm"
+                    referrerPolicy="no-referrer"
+                  />
                   <h3 className="text-2xl font-bold text-slate-900">{country.name}</h3>
                 </div>
                 
@@ -212,7 +228,13 @@ export default function Guides() {
                   )}
                 </div>
               </div>
-            ))}
+              {(index + 1) % 3 === 0 && index !== filteredCountries.length - 1 && (
+                <div className="my-12">
+                  <AdSpace type="banner" />
+                </div>
+              )}
+            </React.Fragment>
+          ))}
 
             {filteredCountries.length === 0 && (
               <div className="text-center py-20 bg-slate-50 rounded-[2.5rem] border border-dashed border-slate-200">

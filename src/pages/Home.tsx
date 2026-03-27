@@ -16,6 +16,9 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { countries } from "../data/countries";
 import { cn } from "../lib/utils";
+import { AdSpace } from "../components/AdSpace";
+
+import { CinematicBanner } from "../components/CinematicBanner";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -78,7 +81,8 @@ export default function Home() {
       location: "Lagos, Nigeria",
       type: "Student Visa Applicant",
       initials: "OA",
-      flag: "🇳🇬"
+      flag: "🇳🇬",
+      isoCode: "ng"
     },
     {
       quote: "Conseguir mi visa de nómada digital para España fue mucho más sencillo con su guía. La claridad en los requisitos financieros me ahorró meses de estrés.",
@@ -86,7 +90,8 @@ export default function Home() {
       location: "Bogotá, Colombia",
       type: "Digital Nomad Applicant",
       initials: "VR",
-      flag: "🇨🇴"
+      flag: "🇨🇴",
+      isoCode: "co"
     },
     {
       quote: "Moving to Germany for a tech role seemed daunting until I used this platform. The step-by-step checklist ensured I didn't miss a single document.",
@@ -94,7 +99,8 @@ export default function Home() {
       location: "New York, USA",
       type: "Skilled Worker Applicant",
       initials: "SJ",
-      flag: "🇺🇸"
+      flag: "🇺🇸",
+      isoCode: "us"
     },
     {
       quote: "The UK Skilled Worker guide was incredibly precise. It helped me navigate the sponsorship process from Ghana without any legal delays.",
@@ -102,7 +108,8 @@ export default function Home() {
       location: "Accra, Ghana",
       type: "Skilled Worker Applicant",
       initials: "MW",
-      flag: "🇬🇭"
+      flag: "🇬🇭",
+      isoCode: "gh"
     },
     {
       quote: "A transição para Portugal com o visto D7 foi muito tranquila. As informações sobre comprovação de renda passiva foram fundamentais.",
@@ -110,7 +117,8 @@ export default function Home() {
       location: "São Paulo, Brazil",
       type: "Passive Income Applicant",
       initials: "LO",
-      flag: "🇧🇷"
+      flag: "🇧🇷",
+      isoCode: "br"
     },
     {
       quote: "Applying for the UAE Golden Visa from Berlin was seamless. The platform's breakdown of investment categories was exactly what I needed.",
@@ -118,7 +126,8 @@ export default function Home() {
       location: "Berlin, Germany",
       type: "Golden Visa Applicant",
       initials: "ES",
-      flag: "🇩🇪"
+      flag: "🇩🇪",
+      isoCode: "de"
     },
     {
       quote: "The Opportunity Card guide for Germany is the best resource for Egyptians. It explained the points system clearly and helped me secure my visa.",
@@ -126,7 +135,8 @@ export default function Home() {
       location: "Cairo, Egypt",
       type: "Job Seeker Applicant",
       initials: "AE",
-      flag: "🇪🇬"
+      flag: "🇪🇬",
+      isoCode: "eg"
     },
     {
       quote: "Obtener la visa TN para trabajar en EE.UU. como ingeniera mexicana fue directo gracias a sus plantillas de cartas de oferta.",
@@ -134,7 +144,8 @@ export default function Home() {
       location: "Mexico City, Mexico",
       type: "Professional Visa Applicant",
       initials: "MG",
-      flag: "🇲🇽"
+      flag: "🇲🇽",
+      isoCode: "mx"
     },
     {
       quote: "Il processo per il Working Holiday in Australia è stato semplicissimo. La guida mi ha aiutato con l'assicurazione e i requisiti bancari.",
@@ -142,7 +153,8 @@ export default function Home() {
       location: "Milan, Italy",
       type: "Working Holiday Applicant",
       initials: "AR",
-      flag: "🇮🇹"
+      flag: "🇮🇹",
+      isoCode: "it"
     }
   ];
 
@@ -229,6 +241,8 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
+      
+      <CinematicBanner />
 
       {/* Smart Entry System */}
       <section id="smart-entry" className="px-6 scroll-mt-24">
@@ -399,6 +413,10 @@ export default function Home() {
         </div>
       </section>
 
+      <div className="max-w-7xl mx-auto px-6 mb-24">
+        <AdSpace type="banner" />
+      </div>
+
       {/* Country Grid */}
       <section id="countries" className="px-6">
         <div className="max-w-7xl mx-auto">
@@ -435,7 +453,12 @@ export default function Home() {
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-2xl">{country.flag}</span>
+                    <img 
+                      src={`https://flagcdn.com/w40/${country.isoCode}.png`}
+                      alt=""
+                      className="w-6 h-4 object-cover rounded-sm shadow-sm"
+                      referrerPolicy="no-referrer"
+                    />
                     <h3 className="text-xl font-bold">{country.name}</h3>
                   </div>
                   <div className="space-y-1 mb-4">
@@ -457,6 +480,10 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <div className="max-w-7xl mx-auto px-6 mb-24">
+        <AdSpace type="banner" />
+      </div>
 
       {/* Trust Section */}
       <section className="bg-slate-900 py-32 px-6 text-white overflow-hidden relative">
@@ -501,8 +528,13 @@ export default function Home() {
                       <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center font-bold text-lg shadow-lg shadow-blue-500/20">
                         {testimonials[testimonialIndex].initials}
                       </div>
-                      <div className="absolute -bottom-1 -right-1 w-7 h-7 bg-white rounded-full flex items-center justify-center text-sm shadow-md border border-slate-100">
-                        {testimonials[testimonialIndex].flag}
+                      <div className="absolute -bottom-1 -right-1 w-7 h-7 bg-white rounded-full flex items-center justify-center overflow-hidden shadow-md border border-slate-100">
+                        <img 
+                          src={`https://flagcdn.com/w40/${testimonials[testimonialIndex].isoCode}.png`}
+                          alt=""
+                          className="w-full h-full object-cover"
+                          referrerPolicy="no-referrer"
+                        />
                       </div>
                     </div>
                     <div>

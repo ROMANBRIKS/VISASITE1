@@ -17,6 +17,8 @@ import {
 import { countries } from "../data/countries";
 import { cn } from "../lib/utils";
 
+import { AdSpace } from '../components/AdSpace';
+
 export default function CountryDetail() {
   const { countryId } = useParams();
   const country = countries.find(c => c.id === countryId);
@@ -56,7 +58,12 @@ export default function CountryDetail() {
             <ArrowLeft className="w-5 h-5" /> Back to Destinations
           </Link>
           <div className="flex items-center gap-4 mb-4">
-            <span className="text-5xl">{country.flag}</span>
+            <img 
+              src={`https://flagcdn.com/w80/${country.isoCode}.png`}
+              alt=""
+              className="w-12 h-8 object-cover rounded shadow-lg"
+              referrerPolicy="no-referrer"
+            />
             <h1 className="text-5xl md:text-6xl font-bold text-white tracking-tight">{country.name}</h1>
           </div>
           <p className="text-xl text-white/80 max-w-2xl leading-relaxed">
@@ -108,6 +115,8 @@ export default function CountryDetail() {
 
             {/* Sidebar Info */}
             <div className="space-y-8">
+              <AdSpace type="sidebar" />
+              
               <div className="bg-slate-900 text-white p-10 rounded-[2.5rem] shadow-xl shadow-slate-200 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/20 blur-[60px] rounded-full -translate-y-1/2 translate-x-1/2" />
                 <h3 className="text-2xl font-bold mb-6 flex items-center gap-2">

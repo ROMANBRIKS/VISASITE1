@@ -1,4 +1,5 @@
 
+import React, { useState } from "react";
 import { motion } from "motion/react";
 import SEO from "../components/SEO";
 import { 
@@ -11,8 +12,11 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { countries } from "../data/countries";
-import { useState } from "react";
 import { cn } from "../lib/utils";
+
+import { AdSpace } from '../components/AdSpace';
+
+import { CinematicBanner } from "../components/CinematicBanner";
 
 export default function Countries() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -67,75 +71,88 @@ export default function Countries() {
         </div>
       </section>
 
+      <CinematicBanner />
+
       {/* Countries List */}
       <section className="px-6 -mt-12 relative z-20">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 gap-12">
             {filteredCountries.map((country, index) => (
-              <motion.div 
-                key={country.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
-                className="bg-white rounded-[2.5rem] shadow-xl shadow-slate-200 border border-slate-100 overflow-hidden"
-              >
-                <div className="grid grid-cols-1 lg:grid-cols-3">
-                  {/* Country Info */}
-                  <div className="p-10 bg-slate-50 lg:border-r border-slate-100">
-                    <div className="flex items-center gap-4 mb-6">
-                      <span className="text-5xl">{country.flag}</span>
-                      <h2 className="text-3xl font-bold text-slate-900">{country.name}</h2>
+              <React.Fragment key={country.id}>
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.05 }}
+                  className="bg-white rounded-[2.5rem] shadow-xl shadow-slate-200 border border-slate-100 overflow-hidden"
+                >
+                  <div className="grid grid-cols-1 lg:grid-cols-3">
+                    {/* Country Info */}
+                    <div className="p-10 bg-slate-50 lg:border-r border-slate-100">
+                      <div className="flex items-center gap-4 mb-6">
+                        <img 
+                          src={`https://flagcdn.com/w80/${country.isoCode}.png`}
+                          alt=""
+                          className="w-12 h-8 object-cover rounded shadow-md"
+                          referrerPolicy="no-referrer"
+                        />
+                        <h2 className="text-3xl font-bold text-slate-900">{country.name}</h2>
+                      </div>
+                      <p className="text-slate-600 mb-8 leading-relaxed">
+                        {country.description}
+                      </p>
+                      <div className="aspect-video rounded-2xl overflow-hidden mb-8">
+                        <img 
+                          src={country.landmark} 
+                          alt={country.name}
+                          className="w-full h-full object-cover"
+                          referrerPolicy="no-referrer"
+                        />
+                      </div>
+                      <Link 
+                        to={`/country/${country.id}`}
+                        className="inline-flex items-center gap-2 text-blue-600 font-bold hover:gap-3 transition-all"
+                      >
+                        View Country Guide <ArrowRight className="w-5 h-5" />
+                      </Link>
                     </div>
-                    <p className="text-slate-600 mb-8 leading-relaxed">
-                      {country.description}
-                    </p>
-                    <div className="aspect-video rounded-2xl overflow-hidden mb-8">
-                      <img 
-                        src={country.landmark} 
-                        alt={country.name}
-                        className="w-full h-full object-cover"
-                        referrerPolicy="no-referrer"
-                      />
-                    </div>
-                    <Link 
-                      to={`/country/${country.id}`}
-                      className="inline-flex items-center gap-2 text-blue-600 font-bold hover:gap-3 transition-all"
-                    >
-                      View Country Guide <ArrowRight className="w-5 h-5" />
-                    </Link>
-                  </div>
 
-                  {/* Visa List */}
-                  <div className="lg:col-span-2 p-10">
-                    <h3 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-8">Available Visas</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      {country.visas.map((visa) => (
-                        <Link 
-                          key={visa.id}
-                          to={`/visa/${country.id}/${visa.id}`}
-                          className="group p-6 bg-white border border-slate-100 rounded-3xl hover:border-blue-200 hover:shadow-lg transition-all"
-                        >
-                          <h4 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
-                            {visa.name}
-                          </h4>
-                          <p className="text-sm text-slate-500 mb-4 line-clamp-2">
-                            {visa.description}
-                          </p>
-                          <div className="flex flex-wrap gap-2">
-                            {visa.benefits.slice(0, 2).map((benefit, i) => (
-                              <span key={i} className="px-2 py-1 bg-blue-50 text-[10px] font-bold text-blue-600 rounded-full flex items-center gap-1">
-                                <CheckCircle2 className="w-3 h-3" />
-                                {benefit}
-                              </span>
-                            ))}
-                          </div>
-                        </Link>
-                      ))}
+                    {/* Visa List */}
+                    <div className="lg:col-span-2 p-10">
+                      <h3 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-8">Available Visas</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {country.visas.map((visa) => (
+                          <Link 
+                            key={visa.id}
+                            to={`/visa/${country.id}/${visa.id}`}
+                            className="group p-6 bg-white border border-slate-100 rounded-3xl hover:border-blue-200 hover:shadow-lg transition-all"
+                          >
+                            <h4 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+                              {visa.name}
+                            </h4>
+                            <p className="text-sm text-slate-500 mb-4 line-clamp-2">
+                              {visa.description}
+                            </p>
+                            <div className="flex flex-wrap gap-2">
+                              {visa.benefits.slice(0, 2).map((benefit, i) => (
+                                <span key={i} className="px-2 py-1 bg-blue-50 text-[10px] font-bold text-blue-600 rounded-full flex items-center gap-1">
+                                  <CheckCircle2 className="w-3 h-3" />
+                                  {benefit}
+                                </span>
+                              ))}
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </motion.div>
+                </motion.div>
+                {(index + 1) % 3 === 0 && index !== filteredCountries.length - 1 && (
+                  <div className="my-12">
+                    <AdSpace type="banner" />
+                  </div>
+                )}
+              </React.Fragment>
             ))}
 
             {filteredCountries.length === 0 && (
@@ -149,6 +166,10 @@ export default function Countries() {
                 </button>
               </div>
             )}
+            
+            <div className="mt-12">
+              <AdSpace type="banner" />
+            </div>
           </div>
         </div>
       </section>

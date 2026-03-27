@@ -26,6 +26,8 @@ import { toast } from "sonner";
 import { cn } from "../lib/utils";
 import { sendEmailVerification } from "firebase/auth";
 
+import { AdSpace } from '../components/AdSpace';
+
 export default function Dashboard() {
   const navigate = useNavigate();
   const [userProfile, setUserProfile] = useState<any>(null);
@@ -233,8 +235,13 @@ export default function Dashboard() {
                       <div key={app.id} className="p-8 bg-slate-50 rounded-3xl border border-slate-100 hover:border-blue-200 transition-all">
                         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                           <div className="flex items-center gap-4">
-                            <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center text-2xl shadow-sm">
-                              {country?.flag}
+                            <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center overflow-hidden shadow-sm">
+                              <img 
+                                src={`https://flagcdn.com/w80/${country?.isoCode}.png`}
+                                alt=""
+                                className="w-10 h-7 object-cover rounded-sm"
+                                referrerPolicy="no-referrer"
+                              />
                             </div>
                             <div>
                               <h3 className="text-lg font-bold text-slate-900">{visa?.name}</h3>
@@ -299,6 +306,8 @@ export default function Dashboard() {
 
           {/* Sidebar */}
           <div className="space-y-8">
+            <AdSpace type="sidebar" />
+            
             <div className="bg-slate-900 text-white p-10 rounded-[2.5rem] shadow-xl shadow-slate-200 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/20 blur-[60px] rounded-full -translate-y-1/2 translate-x-1/2" />
               <h3 className="text-2xl font-bold mb-8">Account Summary</h3>

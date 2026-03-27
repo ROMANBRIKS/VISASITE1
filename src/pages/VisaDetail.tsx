@@ -21,6 +21,8 @@ import {
 import { countries } from "../data/countries";
 import { cn } from "../lib/utils";
 
+import { AdSpace } from '../components/AdSpace';
+
 export default function VisaDetail() {
   const { countryId, visaId } = useParams();
   const navigate = useNavigate();
@@ -54,7 +56,12 @@ export default function VisaDetail() {
                 <ArrowLeft className="w-5 h-5" /> Back to {country.name}
               </Link>
               <div className="flex items-center gap-4 mb-4">
-                <span className="text-4xl">{country.flag}</span>
+                <img 
+                  src={`https://flagcdn.com/w40/${country.isoCode}.png`}
+                  alt=""
+                  className="w-8 h-5 object-cover rounded shadow-sm"
+                  referrerPolicy="no-referrer"
+                />
                 <span className="text-sm font-bold text-blue-600 uppercase tracking-widest">{country.name} Visa</span>
               </div>
               <h1 className="text-5xl md:text-6xl font-bold text-slate-900 tracking-tight leading-tight">{visa.name}</h1>
@@ -162,6 +169,8 @@ export default function VisaDetail() {
 
             {/* Sidebar */}
             <div className="space-y-8">
+              <AdSpace type="sidebar" />
+              
               <div className="bg-white p-10 rounded-[2.5rem] shadow-xl shadow-slate-200 border border-slate-100 sticky top-32">
                 <h3 className="text-2xl font-bold text-slate-900 mb-8">Application Summary</h3>
                 <div className="space-y-6 mb-10">
