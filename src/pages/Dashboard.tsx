@@ -259,15 +259,11 @@ export default function Dashboard() {
                             )}>
                               {app.status?.replace('_', ' ')}
                             </div>
-                            {app.type === 'guide' && app.status === 'completed' && (
+                            {(app.type === 'guide' || app.status === 'completed' || app.status === 'paid') && (
                               <button 
                                 onClick={() => {
                                   toast.success("Downloading guide...");
-                                  // Mock download
-                                  const link = document.createElement('a');
-                                  link.href = '#';
-                                  link.download = `${visa?.name.replace(/\s+/g, '_')}_Guide.pdf`;
-                                  link.click();
+                                  window.open(`/api/guides/download/${app.id}`, '_blank');
                                 }}
                                 className="flex items-center gap-2 px-6 py-2 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-all text-sm shadow-lg shadow-blue-100"
                               >
@@ -285,14 +281,6 @@ export default function Dashboard() {
                                 <ExternalLink className="w-4 h-4" />
                                 Apply Now
                               </a>
-                            )}
-                            {app.type === 'guide' && app.status === 'paid' && (
-                              <button 
-                                className="p-2 bg-green-500 text-white rounded-xl hover:bg-green-600 transition-all shadow-lg shadow-green-100"
-                                title="Download Guide"
-                              >
-                                <Download className="w-5 h-5" />
-                              </button>
                             )}
                           </div>
                         </div>

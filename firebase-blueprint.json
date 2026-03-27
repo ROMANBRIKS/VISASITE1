@@ -26,11 +26,12 @@
         "userId": { "type": "string" },
         "countryId": { "type": "string" },
         "visaId": { "type": "string" },
-        "status": { "type": "string", "enum": ["pending", "paid", "qualified", "not-qualified"] },
+        "status": { "type": "string", "enum": ["pending", "paid", "completed", "qualified", "not-qualified"] },
         "type": { "type": "string", "enum": ["eligibility", "guide"] },
         "createdAt": { "type": "string", "format": "date-time" },
         "updatedAt": { "type": "string", "format": "date-time" },
         "paymentId": { "type": "string" },
+        "fileName": { "type": "string" },
         "formData": { "type": "object" }
       },
       "required": ["userId", "countryId", "visaId", "status", "type"]

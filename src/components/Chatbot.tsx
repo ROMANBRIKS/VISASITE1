@@ -44,7 +44,12 @@ export default function Chatbot() {
   const audioContextRef = useRef<AudioContext | null>(null);
 
   useEffect(() => {
-    const handleOpen = () => setIsOpen(true);
+    const handleOpen = (e: any) => {
+      setIsOpen(true);
+      if (e.detail?.message) {
+        setInput(e.detail.message);
+      }
+    };
     window.addEventListener('open-chatbot', handleOpen);
     return () => window.removeEventListener('open-chatbot', handleOpen);
   }, []);
@@ -75,7 +80,7 @@ export default function Chatbot() {
     try {
       const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
       const session = await ai.live.connect({
-        model: "gemini-2.5-flash-native-audio-preview-12-2025",
+        model: "gemini-3.1-flash-live-preview",
         config: {
           responseModalities: [Modality.AUDIO],
           speechConfig: {

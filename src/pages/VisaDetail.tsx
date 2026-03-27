@@ -40,12 +40,36 @@ export default function VisaDetail() {
     );
   }
 
+  const siteUrl = window.location.origin;
+  const visaSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": `${visa.name} for ${country.name}`,
+    "description": visa.description,
+    "provider": {
+      "@type": "Organization",
+      "name": "VisaPlatform"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": country.name
+    },
+    "serviceType": "Visa Application Guidance",
+    "offers": {
+      "@type": "Offer",
+      "url": `${siteUrl}/visa/${country.id}/${visa.id}`,
+      "priceCurrency": "USD",
+      "price": "35.00"
+    }
+  };
+
   return (
     <div className="pb-20">
       <SEO 
-        title={`${visa.name} for ${country.name} | Guide & Eligibility`} 
+        title={`${visa.name} for ${country.name}`} 
         description={`Everything you need to know about the ${visa.name} for ${country.name}. Get expert-led guides and check your eligibility today.`}
         keywords={`${visa.name}, ${country.name} visa, ${country.name} immigration, ${country.name} ${visa.name} requirements`}
+        schemaData={visaSchema}
       />
       {/* Visa Header */}
       <section className="bg-slate-50 pt-32 pb-20 px-6 border-b border-slate-200">
@@ -131,6 +155,28 @@ export default function VisaDetail() {
                   </div>
                 </div>
               </div>
+
+              {/* How to Apply Section */}
+              {visa.howToApply && (
+                <div className="bg-white p-10 rounded-[2.5rem] shadow-xl shadow-slate-200 border border-slate-100">
+                  <h2 className="text-3xl font-bold text-slate-900 mb-8 flex items-center gap-3">
+                    <ChevronRight className="w-8 h-8 text-blue-600" />
+                    How to Apply
+                  </h2>
+                  <div className="space-y-6">
+                    {visa.howToApply.map((step, i) => (
+                      <div key={i} className="flex gap-6 items-start">
+                        <div className="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold shrink-0 shadow-lg shadow-blue-100">
+                          {i + 1}
+                        </div>
+                        <div className="pt-2">
+                          <p className="text-lg text-slate-700 leading-relaxed">{step}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {/* Benefits */}
               <div>

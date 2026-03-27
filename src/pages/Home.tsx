@@ -180,12 +180,56 @@ export default function Home() {
     }
   };
 
+  const siteUrl = window.location.origin;
+  const homeSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "VisaPlatform",
+    "url": siteUrl,
+    "description": "Global Visa Platform - Expert-led visa guides, eligibility checks, and immigration support for 16+ countries.",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": `${siteUrl}/countries?search={search_term_string}`,
+      "query-input": "required name=search_term_string"
+    },
+    "mainEntity": {
+      "@type": "Service",
+      "name": "Visa Guidance & Eligibility",
+      "provider": {
+        "@type": "Organization",
+        "name": "VisaPlatform"
+      },
+      "areaServed": "Global",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Visa Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Visa Eligibility Check"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Visa Application Guides"
+            }
+          }
+        ]
+      }
+    }
+  };
+
   return (
     <div className="flex flex-col gap-20 pb-20">
       <SEO 
         title="Find the Right Visa. Apply With Confidence." 
         description="Global Visa Platform - Expert-led visa guides, eligibility checks, and immigration support for 16+ countries. Trusted by 70,000+ applicants."
         keywords="visa guide, immigration support, eligibility check, student visa, work visa, digital nomad visa, global immigration"
+        schemaData={homeSchema}
       />
       {/* Hero Section */}
       <section className="relative h-[85vh] flex items-center px-6 overflow-hidden">

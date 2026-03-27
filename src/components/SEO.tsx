@@ -8,6 +8,7 @@ interface SEOProps {
   ogImage?: string;
   ogType?: string;
   canonical?: string;
+  schemaData?: any;
 }
 
 export default function SEO({ 
@@ -16,12 +17,28 @@ export default function SEO({
   keywords, 
   ogImage, 
   ogType = 'website',
-  canonical 
+  canonical,
+  schemaData
 }: SEOProps) {
-  const siteTitle = "Global Visa Platform";
+  const siteTitle = "VisaPlatform";
   const fullTitle = title ? `${title} | ${siteTitle}` : siteTitle;
   const defaultDescription = "Expert-led visa guides, eligibility checks, and immigration support for 16+ countries. Trusted by 70,000+ applicants.";
   const siteUrl = window.location.origin;
+  const currentUrl = window.location.href;
+
+  const defaultSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": siteTitle,
+    "url": siteUrl,
+    "logo": `${siteUrl}/logo.png`,
+    "description": defaultDescription,
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+1-000-000-0000",
+      "contactType": "customer service"
+    }
+  };
 
   return (
     <Helmet>
@@ -30,13 +47,15 @@ export default function SEO({
       <meta name='description' content={description || defaultDescription} />
       {keywords && <meta name='keywords' content={keywords} />}
       {canonical && <link rel="canonical" href={canonical} />}
+      <meta name="robots" content="index, follow" />
 
       {/* Open Graph / Facebook */}
+      <meta property="og:site_name" content={siteTitle} />
       <meta property="og:type" content={ogType} />
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description || defaultDescription} />
       {ogImage && <meta property="og:image" content={ogImage} />}
-      <meta property="og:url" content={window.location.href} />
+      <meta property="og:url" content={currentUrl} />
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
@@ -44,20 +63,14 @@ export default function SEO({
       <meta name="twitter:description" content={description || defaultDescription} />
       {ogImage && <meta name="twitter:image" content={ogImage} />}
 
+      {/* AI & Search Engine Specifics */}
+      <meta name="author" content={siteTitle} />
+      <meta name="application-name" content={siteTitle} />
+      <meta name="apple-mobile-web-app-title" content={siteTitle} />
+
       {/* Structured Data (JSON-LD) */}
       <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          "name": siteTitle,
-          "url": siteUrl,
-          "logo": `${siteUrl}/logo.png`,
-          "description": defaultDescription,
-          "sameAs": [
-            "https://twitter.com/globalvisa",
-            "https://facebook.com/globalvisa"
-          ]
-        })}
+        {JSON.stringify(schemaData || defaultSchema)}
       </script>
     </Helmet>
   );

@@ -5,14 +5,12 @@ import { motion, AnimatePresence } from "motion/react";
 import { 
   ArrowLeft, 
   ShieldCheck, 
-  CreditCard, 
   CheckCircle2, 
   AlertCircle, 
   Download, 
   ExternalLink,
   ChevronRight,
   Globe,
-  Lock,
   Loader2,
   Info
 } from "lucide-react";
@@ -77,70 +75,38 @@ export default function Checkout() {
   const handlePayment = async () => {
     setIsLoading(true);
     try {
-      // Simulate payment processing with a mock Paystack/Flutterwave experience
-      toast.info("Connecting to secure payment gateway...");
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      const appId = `VISA-${Math.random().toString(36).substring(2, 7).toUpperCase()}`;
+      const response = await fetch("/api/checkout-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId: user?.uid,
+          type,
+          countryId,
+          visaId,
+          fileName: visa.fileName
+        })
+      });
+
+      const { url, error } = await response.json();
+      if (error) throw new Error(error);
+
+      // In the new mocked flow, we just move to the next step
+      // The URL returned is /checkout/success?application_id=...
+      const urlParams = new URLSearchParams(url.split('?')[1]);
+      const appId = urlParams.get('application_id');
       setApplicationId(appId);
-
-      // Create payment record
-      const paymentRef = await addDoc(collection(db, "payments"), {
-        userId: user?.uid,
-        amount: prices[type as keyof typeof prices] || 0,
-        currency: "USD",
-        status: "completed",
-        type,
-        createdAt: serverTimestamp()
-      });
-
-      // Create application record
-      const applicationRef = await addDoc(collection(db, "applications"), {
-        userId: user?.uid,
-        applicationId: appId,
-        countryId,
-        visaId,
-        status: type === 'eligibility' ? "pending_assessment" : "completed",
-        type,
-        paymentId: paymentRef.id,
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp(),
-        formData: {}
-      });
-
-      toast.success("Payment Successful!");
-      
-      // Trigger payment confirmation email
-      try {
-        await fetch("/api/email/trigger", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            type: "payment_confirmation",
-            email: user?.email,
-            data: { 
-              type, 
-              id: paymentRef.id,
-              country: country.name,
-              visa: visa.name
-            }
-          })
-        });
-      } catch (e) {
-        console.error("Failed to trigger payment email", e);
-      }
-
-      if (type === 'eligibility') {
-        setStep('form');
-      } else {
-        setStep('result');
-      }
+      setStep('form');
     } catch (error) {
-      console.error("Payment error:", error);
-      toast.error("Payment failed. Please try again.");
+      console.error("Checkout error:", error);
+      toast.error("Failed to process request. Please try again.");
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleDownload = async () => {
+    if (!applicationId) return;
+    window.open(`/api/guides/download/${applicationId}`, '_blank');
   };
 
   const handleFormSubmit = async (e: any) => {
@@ -176,7 +142,7 @@ export default function Checkout() {
             )}>
               {step === 'payment' ? "1" : <CheckCircle2 className="w-6 h-6" />}
             </div>
-            <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Payment</span>
+            <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Confirm</span>
           </div>
           <div className="flex-1 h-px bg-slate-200 mx-4" />
           <div className="flex flex-col items-center gap-2">
@@ -233,48 +199,30 @@ export default function Checkout() {
                   </div>
                   <div className="flex justify-between items-center text-2xl font-bold text-slate-900">
                     <span>Total</span>
-                    <span>${prices[type as keyof typeof prices]}</span>
+                    <span className="text-green-600">FREE</span>
                   </div>
                 </div>
 
                 <div className="p-8 bg-blue-50 rounded-3xl border border-blue-100 flex gap-4">
-                  <Lock className="w-6 h-6 text-blue-600 shrink-0" />
+                  <ShieldCheck className="w-6 h-6 text-blue-600 shrink-0" />
                   <p className="text-sm text-blue-800 leading-relaxed">
-                    Secure checkout powered by Paystack. Your payment information is encrypted and never stored on our servers.
+                    This service is currently free. Proceed to provide your details for the eligibility assessment.
                   </p>
                 </div>
               </div>
 
               <div className="bg-white p-10 rounded-[2.5rem] shadow-xl shadow-slate-200 border border-slate-100">
-                <h2 className="text-2xl font-bold text-slate-900 mb-8">Payment Method</h2>
-                <div className="space-y-4 mb-10">
-                  <button className="w-full p-6 border-2 border-blue-600 bg-blue-50 rounded-2xl flex items-center justify-between group">
-                    <div className="flex items-center gap-4">
-                      <CreditCard className="w-6 h-6 text-blue-600" />
-                      <div className="text-left">
-                        <p className="font-bold text-slate-900">Card / Mobile Money</p>
-                        <p className="text-xs text-slate-500">Paystack / Flutterwave</p>
-                      </div>
-                    </div>
-                    <CheckCircle2 className="w-6 h-6 text-blue-600" />
-                  </button>
-                  <button className="w-full p-6 border-2 border-slate-100 rounded-2xl flex items-center justify-between group hover:border-blue-200 transition-all">
-                    <div className="flex items-center gap-4">
-                      <Globe className="w-6 h-6 text-slate-400" />
-                      <div className="text-left">
-                        <p className="font-bold text-slate-900">Cryptocurrency</p>
-                        <p className="text-xs text-slate-500">BTC, ETH, USDT</p>
-                      </div>
-                    </div>
-                  </button>
-                </div>
+                <h2 className="text-2xl font-bold text-slate-900 mb-8">Ready to Start?</h2>
+                <p className="text-slate-500 mb-10 leading-relaxed">
+                  You are about to start the {type === 'guide' ? 'Guide Download' : 'Eligibility Assessment'} for {visa.name} in {country.name}.
+                </p>
 
                 <button 
                   onClick={handlePayment}
                   disabled={isLoading}
                   className="w-full py-5 bg-blue-600 text-white rounded-2xl font-bold text-lg hover:bg-blue-700 transition-all shadow-lg shadow-blue-100 flex items-center justify-center gap-2"
                 >
-                  {isLoading ? <Loader2 className="w-6 h-6 animate-spin" /> : "Complete Payment"}
+                  {isLoading ? <Loader2 className="w-6 h-6 animate-spin" /> : "Proceed to Details"}
                 </button>
               </div>
             </motion.div>
@@ -548,7 +496,10 @@ export default function Checkout() {
                   </p>
                   
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button className="px-10 py-5 bg-blue-600 text-white rounded-2xl font-bold text-lg hover:bg-blue-700 transition-all shadow-xl shadow-blue-100 flex items-center justify-center gap-2">
+                    <button 
+                      onClick={handleDownload}
+                      className="px-10 py-5 bg-blue-600 text-white rounded-2xl font-bold text-lg hover:bg-blue-700 transition-all shadow-xl shadow-blue-100 flex items-center justify-center gap-2"
+                    >
                       Download Full Guide (PDF)
                       <Download className="w-5 h-5" />
                     </button>

@@ -28,12 +28,14 @@ import Home from "./pages/Home";
 import CountryDetail from "./pages/CountryDetail";
 import VisaDetail from "./pages/VisaDetail";
 import Checkout from "./pages/Checkout";
+import CheckoutSuccess from "./pages/CheckoutSuccess";
 import Dashboard from "./pages/Dashboard";
 import Auth from "./pages/Auth";
 import Countries from "./pages/Countries";
 import Guides from "./pages/Guides";
 import CountryGuides from "./pages/CountryGuides";
 import Chatbot from "./components/Chatbot";
+import { AdSpace } from "./components/AdSpace";
 
 function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -150,6 +152,9 @@ export default function App() {
       <div className="min-h-screen bg-white font-sans text-slate-900 selection:bg-blue-100 selection:text-blue-900">
         <Navbar />
         <main className="pt-20">
+          <div className="max-w-7xl mx-auto px-6 pt-8">
+            <AdSpace type="banner" />
+          </div>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/countries" element={<Countries />} />
@@ -158,6 +163,7 @@ export default function App() {
             <Route path="/country/:countryId" element={<CountryDetail />} />
             <Route path="/visa/:countryId/:visaId" element={<VisaDetail />} />
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="/checkout/success" element={<CheckoutSuccess />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/auth" element={<Auth />} />
           </Routes>

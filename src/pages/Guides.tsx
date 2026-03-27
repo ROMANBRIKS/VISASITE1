@@ -263,10 +263,24 @@ export default function Guides() {
                 our consultant can generate a custom preliminary report for you.
               </p>
               <div className="flex flex-wrap gap-4">
-                <button className="px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold hover:bg-slate-800 transition-all">
+                <button 
+                  onClick={() => {
+                    window.dispatchEvent(new CustomEvent('open-chatbot', { 
+                      detail: { message: "I'd like to request a custom visa guide for a country not listed here." } 
+                    }));
+                  }}
+                  className="px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold hover:bg-slate-800 transition-all"
+                >
                   Request Custom Guide
                 </button>
-                <button className="px-8 py-4 bg-white text-slate-900 border border-slate-200 rounded-2xl font-bold hover:bg-slate-50 transition-all">
+                <button 
+                  onClick={() => {
+                    window.dispatchEvent(new CustomEvent('open-chatbot', { 
+                      detail: { message: "I need help with a guide I've downloaded." } 
+                    }));
+                  }}
+                  className="px-8 py-4 bg-white text-slate-900 border border-slate-200 rounded-2xl font-bold hover:bg-slate-50 transition-all"
+                >
                   Contact Support
                 </button>
               </div>

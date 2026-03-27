@@ -26,12 +26,31 @@ export default function Countries() {
     country.visas.some(v => v.name.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
+  const siteUrl = window.location.origin;
+  const countriesSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Supported Countries for Visa Guidance",
+    "description": "Explore the full list of countries supported by VisaPlatform and the various visa categories offered for each.",
+    "itemListElement": countries.map((country, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": {
+        "@type": "Country",
+        "name": country.name,
+        "url": `${siteUrl}/country/${country.id}`,
+        "description": country.description
+      }
+    }))
+  };
+
   return (
     <div className="pb-20">
       <SEO 
-        title="Supported Countries & Visa Options | VisaPlatform" 
+        title="Supported Countries & Visa Options" 
         description="Explore the full list of countries supported by VisaPlatform and the various visa categories offered for each, including work, study, and tourism."
         keywords="visa countries, supported countries, visa types, global immigration, work visa, student visa"
+        schemaData={countriesSchema}
       />
 
       {/* Hero Section */}

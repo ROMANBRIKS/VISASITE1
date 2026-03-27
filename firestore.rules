@@ -48,7 +48,7 @@ service cloud.firestore {
              data.userId is string &&
              data.countryId is string &&
              data.visaId is string &&
-             data.status in ['pending', 'paid', 'qualified', 'not-qualified'] &&
+             data.status in ['pending', 'paid', 'completed', 'qualified', 'not-qualified'] &&
              data.type in ['eligibility', 'guide'];
     }
 

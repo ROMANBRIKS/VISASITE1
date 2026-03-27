@@ -7,6 +7,14 @@ export interface VisaCategory {
   benefits: string[];
   whoItIsFor: string;
   fileName?: string;
+  howToApply?: string[];
+}
+
+export interface LivingInCountry {
+  costOfLiving: string;
+  healthcare: string;
+  safety: string;
+  culture: string;
 }
 
 export interface Country {
@@ -17,6 +25,7 @@ export interface Country {
   landmark: string;
   description: string;
   visas: VisaCategory[];
+  livingInCountry?: LivingInCountry;
 }
 
 export const countries: Country[] = [
@@ -27,6 +36,12 @@ export const countries: Country[] = [
     isoCode: 'us',
     landmark: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?q=80&w=1000&auto=format&fit=crop',
     description: 'The land of opportunity with diverse visa options for tourism, study, and work.',
+    livingInCountry: {
+      costOfLiving: 'High, especially in major cities like New York and San Francisco. Rent varies widely.',
+      healthcare: 'Private healthcare system. Insurance is highly recommended and often provided by employers.',
+      safety: 'Generally safe, but varies by neighborhood. Standard urban precautions apply.',
+      culture: 'Diverse, individualistic, and fast-paced. Strong emphasis on innovation and freedom.'
+    },
     visas: [
       // Visitor / Travel
       {
@@ -36,7 +51,14 @@ export const countries: Country[] = [
         officialUrl: 'https://ceac.state.gov/genniv/',
         benefits: ['Business networking', 'Short-term stay', 'Fast processing'],
         whoItIsFor: 'Business professionals.',
-        fileName: 'B1_Visa_Guide.pdf'
+        fileName: 'B1_Visa_Guide.pdf',
+        howToApply: [
+          'Complete the DS-160 online application form.',
+          'Pay the visa application fee.',
+          'Schedule a visa interview at a US Embassy or Consulate.',
+          'Gather required documents (passport, photo, business letter).',
+          'Attend the interview and wait for processing.'
+        ]
       },
       {
         id: 'b2-visa',
@@ -368,6 +390,12 @@ export const countries: Country[] = [
     isoCode: 'ca',
     landmark: 'https://images.unsplash.com/photo-1503614472-8c93d56e92ce?q=80&w=1000&auto=format&fit=crop',
     description: 'Known for its welcoming immigration policies and high quality of life.',
+    livingInCountry: {
+      costOfLiving: 'Moderate to high. Housing in cities like Toronto and Vancouver is expensive.',
+      healthcare: 'Publicly funded healthcare system (Medicare). High quality and accessible to residents.',
+      safety: 'Very safe with low crime rates. Known for its friendly and inclusive society.',
+      culture: 'Multicultural, polite, and outdoor-oriented. Strong emphasis on diversity and inclusion.'
+    },
     visas: [
       // Travel / Visitor
       {
@@ -377,7 +405,14 @@ export const countries: Country[] = [
         officialUrl: 'https://www.canada.ca/en/immigration-refugees-citizenship/services/visit-canada/eta.html',
         benefits: ['Fast online approval', 'Valid for 5 years', 'Low cost'],
         whoItIsFor: 'Visa-exempt travelers.',
-        fileName: 'Canada_eTA_Official_Guide.pdf'
+        fileName: 'Canada_eTA_Official_Guide.pdf',
+        howToApply: [
+          'Check if you need an eTA based on your nationality.',
+          'Apply online using your passport and a credit card.',
+          'Pay the application fee.',
+          'Receive an email confirmation within minutes.',
+          'Your eTA is electronically linked to your passport.'
+        ]
       },
       {
         id: 'super-visa',
@@ -483,6 +518,12 @@ export const countries: Country[] = [
     isoCode: 'de',
     landmark: 'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?q=80&w=1000&auto=format&fit=crop',
     description: 'The economic powerhouse of Europe with excellent work and study opportunities.',
+    livingInCountry: {
+      costOfLiving: 'Moderate. Rent is the biggest expense, but food and transport are reasonable.',
+      healthcare: 'Excellent universal healthcare system. Mandatory insurance for all residents.',
+      safety: 'Very safe with well-maintained public spaces and efficient law enforcement.',
+      culture: 'Structured, punctual, and rich in history. Strong emphasis on work-life balance.'
+    },
     visas: [
       // Visitor / Travel
       {
@@ -492,7 +533,14 @@ export const countries: Country[] = [
         officialUrl: 'https://www.auswaertiges-amt.de/en/visa-service/-/215870',
         benefits: ['Travel across 29 countries', 'Simple process', 'Business networking'],
         whoItIsFor: 'Tourists and business travelers.',
-        fileName: 'Schengen_Visa_Germany_Guide.pdf'
+        fileName: 'Schengen_Visa_Germany_Guide.pdf',
+        howToApply: [
+          'Determine the type of Schengen visa you need.',
+          'Find out where you need to apply (Embassy/Consulate/Visa Center).',
+          'Book a visa appointment.',
+          'Complete the application form and gather required documents.',
+          'Attend the appointment and pay the visa fee.'
+        ]
       },
       {
         id: 'short-stay-visitor',
@@ -616,6 +664,12 @@ export const countries: Country[] = [
     isoCode: 'gb',
     landmark: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=1000&auto=format&fit=crop',
     description: 'A global hub for finance, education, and culture.',
+    livingInCountry: {
+      costOfLiving: 'High, especially in London. Other regions are more affordable.',
+      healthcare: 'National Health Service (NHS) provides free healthcare at the point of use.',
+      safety: 'Generally safe. Major cities have typical urban safety considerations.',
+      culture: 'Diverse, historic, and vibrant. Strong emphasis on tradition and innovation.'
+    },
     visas: [
       {
         id: 'standard-visitor',
@@ -623,7 +677,14 @@ export const countries: Country[] = [
         description: 'For tourism, business, or short-term study.',
         officialUrl: 'https://www.gov.uk/standard-visitor-visa',
         benefits: ['Up to 6 months stay', 'Fast-track options', 'Multiple entries'],
-        whoItIsFor: 'Tourists and short-term visitors.'
+        whoItIsFor: 'Tourists and short-term visitors.',
+        howToApply: [
+          'Check if you need a visa to visit the UK.',
+          'Apply online at least 3 months before you travel.',
+          'Pay the application fee.',
+          'Book and attend an appointment at a visa application center.',
+          'Provide your biometric information and documents.'
+        ]
       },
       {
         id: 'skilled-worker',
@@ -658,6 +719,12 @@ export const countries: Country[] = [
     isoCode: 'fr',
     landmark: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=1000&auto=format&fit=crop',
     description: 'The world\'s most visited country, offering rich culture and career paths.',
+    livingInCountry: {
+      costOfLiving: 'High in Paris, moderate in other regions.',
+      healthcare: 'Excellent public healthcare (PUMa). High quality and widely accessible.',
+      safety: 'Generally safe, with standard urban precautions in major cities.',
+      culture: 'Rich in history, art, and gastronomy. Strong emphasis on work-life balance and "art de vivre".'
+    },
     visas: [
       {
         id: 'short-stay',
@@ -665,7 +732,14 @@ export const countries: Country[] = [
         description: 'For visits up to 90 days.',
         officialUrl: 'https://france-visas.gouv.fr/en/web/france-visas/tourism-private-stay',
         benefits: ['Schengen area access', 'Cultural exploration', 'Business meetings'],
-        whoItIsFor: 'Tourists and short-term visitors.'
+        whoItIsFor: 'Tourists and short-term visitors.',
+        howToApply: [
+          'Determine the type of visa you need.',
+          'Create an account on the France-Visas website.',
+          'Complete the online application form.',
+          'Book an appointment at a visa center.',
+          'Attend the appointment with your documents and pay the fee.'
+        ]
       },
       {
         id: 'talent-passport',
@@ -692,6 +766,12 @@ export const countries: Country[] = [
     isoCode: 'be',
     landmark: 'https://images.unsplash.com/photo-1559113513-d5e09c78b9dd?q=80&w=1000&auto=format&fit=crop',
     description: 'The heart of Europe, home to the EU and NATO.',
+    livingInCountry: {
+      costOfLiving: 'Moderate to high. Brussels is more expensive but still affordable compared to London or Paris.',
+      healthcare: 'High-quality healthcare system funded by social security and mandatory insurance.',
+      safety: 'Very safe with low crime rates.',
+      culture: 'Multilingual (Dutch, French, German), famous for chocolate, beer, and surrealist art.'
+    },
     visas: [
       {
         id: 'short-stay',
@@ -699,7 +779,14 @@ export const countries: Country[] = [
         description: 'For tourism or business up to 90 days.',
         officialUrl: 'https://diplomatie.belgium.be/en/travel-belgium/visa-belgium/short-stay-visa-schengen',
         benefits: ['Central location', 'Schengen access', 'Multilingual environment'],
-        whoItIsFor: 'Tourists and business travelers.'
+        whoItIsFor: 'Tourists and business travelers.',
+        howToApply: [
+          'Identify the purpose of your visit.',
+          'Check which embassy or consulate is responsible for your area.',
+          'Complete the Schengen visa application form.',
+          'Gather required documents (passport, insurance, proof of funds).',
+          'Submit your application and attend an interview if required.'
+        ]
       },
       {
         id: 'work-permit-single',
@@ -718,6 +805,12 @@ export const countries: Country[] = [
     isoCode: 'nl',
     landmark: 'https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?q=80&w=1000&auto=format&fit=crop',
     description: 'Innovative, open, and highly efficient country with great career prospects.',
+    livingInCountry: {
+      costOfLiving: 'High, especially in Amsterdam and Utrecht. Housing is in high demand.',
+      healthcare: 'Excellent private healthcare system with mandatory basic insurance for all residents.',
+      safety: 'One of the safest countries in the world.',
+      culture: 'Open-minded, direct, and cycling-oriented. Strong emphasis on innovation and sustainability.'
+    },
     visas: [
       {
         id: 'highly-skilled-migrant',
@@ -725,7 +818,14 @@ export const countries: Country[] = [
         description: 'For professionals earning above a certain salary threshold.',
         officialUrl: 'https://ind.nl/en/residence-permits/work/highly-skilled-migrant',
         benefits: ['Fast-track processing', '30% tax ruling eligibility', 'Family reunification'],
-        whoItIsFor: 'Qualified professionals with a recognized sponsor.'
+        whoItIsFor: 'Qualified professionals with a recognized sponsor.',
+        howToApply: [
+          'Find an employer who is a recognized sponsor by the IND.',
+          'Secure a job offer that meets the salary requirements.',
+          'Your employer will submit the application to the IND on your behalf.',
+          'Once approved, collect your MVV (provisional residence permit) if needed.',
+          'Travel to the Netherlands and collect your residence permit card.'
+        ]
       },
       {
         id: 'orientation-year',
@@ -744,6 +844,12 @@ export const countries: Country[] = [
     isoCode: 'it',
     landmark: 'https://images.unsplash.com/photo-1529260830199-42c24126f198?q=80&w=1000&auto=format&fit=crop',
     description: 'A country of art, history, and incredible lifestyle.',
+    livingInCountry: {
+      costOfLiving: 'Moderate. Northern cities are more expensive than the south.',
+      healthcare: 'National Health Service (SSN) provides universal coverage.',
+      safety: 'Generally safe, with typical tourist-related precautions in major cities.',
+      culture: 'Passionate about food, family, and art. Slow-paced lifestyle ("la dolce vita").'
+    },
     visas: [
       {
         id: 'tourism',
@@ -751,7 +857,14 @@ export const countries: Country[] = [
         description: 'For short visits to explore Italy.',
         officialUrl: 'https://vistoperitalia.esteri.it/home/en',
         benefits: ['Schengen access', 'World-class sites', 'Culinary experiences'],
-        whoItIsFor: 'Tourists.'
+        whoItIsFor: 'Tourists.',
+        howToApply: [
+          'Visit the "Il visto per l\'Italia" website to check requirements.',
+          'Complete the application form for a short-stay visa.',
+          'Gather required documents (flight itinerary, hotel booking, insurance).',
+          'Book an appointment at the Italian embassy or consulate.',
+          'Attend the interview and submit your application.'
+        ]
       },
       {
         id: 'digital-nomad',
@@ -770,6 +883,12 @@ export const countries: Country[] = [
     isoCode: 'es',
     landmark: 'https://images.unsplash.com/photo-1543783207-ec64e4d95325?q=80&w=1000&auto=format&fit=crop',
     description: 'Sunny climate, vibrant culture, and a growing tech scene.',
+    livingInCountry: {
+      costOfLiving: 'Moderate. Affordable compared to Northern Europe.',
+      healthcare: 'High-quality public healthcare system (SNS) and excellent private options.',
+      safety: 'Very safe with a vibrant social life in public spaces.',
+      culture: 'Social, festive, and family-oriented. Famous for tapas, siestas, and diverse regional identities.'
+    },
     visas: [
       {
         id: 'digital-nomad',
@@ -777,7 +896,14 @@ export const countries: Country[] = [
         description: 'For remote workers and freelancers.',
         officialUrl: 'https://www.exteriores.gob.es/Consulados/londres/en/ServiciosConsulares/Paginas/index.aspx',
         benefits: ['Special tax regime', 'Residency for family', 'Travel in Schengen'],
-        whoItIsFor: 'Remote employees and independent contractors.'
+        whoItIsFor: 'Remote employees and independent contractors.',
+        howToApply: [
+          'Verify your eligibility (income, remote work for at least 3 months).',
+          'Gather required documents (criminal record check, proof of work, insurance).',
+          'Apply online (if in Spain) or at a Spanish consulate (if abroad).',
+          'Pay the relevant application fees.',
+          'Receive your residency card (TIE) upon approval.'
+        ]
       },
       {
         id: 'non-lucrative',
@@ -796,6 +922,12 @@ export const countries: Country[] = [
     isoCode: 'pt',
     landmark: 'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?q=80&w=1000&auto=format&fit=crop',
     description: 'One of the safest and most affordable countries in Western Europe.',
+    livingInCountry: {
+      costOfLiving: 'Low to moderate. One of the most affordable in Western Europe.',
+      healthcare: 'National Health Service (SNS) is available to residents, with high-quality private options.',
+      safety: 'Consistently ranked as one of the safest countries in the world.',
+      culture: 'Relaxed, family-oriented, and rich in maritime history. Famous for Fado, seafood, and beautiful coastlines.'
+    },
     visas: [
       {
         id: 'd7-visa',
@@ -803,7 +935,14 @@ export const countries: Country[] = [
         description: 'For retirees or those with stable passive income.',
         officialUrl: 'https://vistos.mne.gov.pt/en/national-visas/general-information/type-of-visa',
         benefits: ['Path to citizenship', 'NHR tax status', 'Schengen access'],
-        whoItIsFor: 'Retirees and those with rental/investment income.'
+        whoItIsFor: 'Retirees and those with rental/investment income.',
+        howToApply: [
+          'Open a Portuguese bank account and obtain a NIF (tax number).',
+          'Gather proof of stable passive income (pension, dividends, rental).',
+          'Secure long-term accommodation in Portugal.',
+          'Apply for the D7 visa at the Portuguese consulate in your home country.',
+          'Travel to Portugal and attend an appointment with SEF (AIMA) to collect your residence permit.'
+        ]
       },
       {
         id: 'digital-nomad',
@@ -822,6 +961,12 @@ export const countries: Country[] = [
     isoCode: 'se',
     landmark: 'https://images.unsplash.com/photo-1509339022327-1e1e25360a41?q=80&w=1000&auto=format&fit=crop',
     description: 'Known for its social equality, innovation, and stunning nature.',
+    livingInCountry: {
+      costOfLiving: 'High, particularly in Stockholm. However, high wages and social benefits balance this.',
+      healthcare: 'Publicly funded healthcare system. High quality and accessible to all residents.',
+      safety: 'Very safe with low crime rates and high social trust.',
+      culture: 'Egalitarian, nature-loving, and innovative. Strong emphasis on sustainability and "lagom" (just the right amount).'
+    },
     visas: [
       {
         id: 'work-permit',
@@ -829,7 +974,14 @@ export const countries: Country[] = [
         description: 'For those with a job offer in Sweden.',
         officialUrl: 'https://www.migrationsverket.se/English/Private-individuals/Working-in-Sweden.html',
         benefits: ['High quality of life', 'Generous leave', 'Family reunification'],
-        whoItIsFor: 'Skilled workers with Swedish employment.'
+        whoItIsFor: 'Skilled workers with Swedish employment.',
+        howToApply: [
+          'Receive an official job offer from a Swedish employer.',
+          'The employer initiates the application with the Migration Agency.',
+          'You receive an email to complete your part of the application online.',
+          'Pay the application fee and submit required documents.',
+          'Wait for a decision and, if approved, visit the embassy for biometrics.'
+        ]
       }
     ]
   },
@@ -840,6 +992,12 @@ export const countries: Country[] = [
     isoCode: 'za',
     landmark: 'https://images.unsplash.com/photo-1580060839134-75a5edca2e99?q=80&w=1000&auto=format&fit=crop',
     description: 'The "Rainbow Nation" with diverse landscapes and opportunities.',
+    livingInCountry: {
+      costOfLiving: 'Low to moderate for those with foreign currency. Great value for lifestyle.',
+      healthcare: 'Excellent private healthcare system. Public healthcare is available but varies in quality.',
+      safety: 'Varies by area. Gated communities and private security are common in urban centers.',
+      culture: 'Diverse and vibrant ("Rainbow Nation"). Famous for wildlife, wine, and outdoor adventure.'
+    },
     visas: [
       {
         id: 'critical-skills',
@@ -847,7 +1005,14 @@ export const countries: Country[] = [
         description: 'For individuals with skills in high demand.',
         officialUrl: 'http://www.dha.gov.za/index.php/immigration-services/types-of-visas',
         benefits: ['Up to 5 years stay', 'No job offer needed initially', 'Permanent residency path'],
-        whoItIsFor: 'Highly skilled professionals in specific sectors.'
+        whoItIsFor: 'Highly skilled professionals in specific sectors.',
+        howToApply: [
+          'Check if your profession is on the official Critical Skills list.',
+          'Get your qualifications evaluated by SAQA.',
+          'Register with the relevant professional body in South Africa.',
+          'Apply for the visa at a South African mission abroad.',
+          'Provide proof of skills, experience, and police clearances.'
+        ]
       }
     ]
   },
@@ -858,6 +1023,12 @@ export const countries: Country[] = [
     isoCode: 'cn',
     landmark: 'https://images.unsplash.com/photo-1508804185872-d7badad00f7d?q=80&w=1000&auto=format&fit=crop',
     description: 'A global economic giant with deep history and rapid modernization.',
+    livingInCountry: {
+      costOfLiving: 'Moderate. Tier 1 cities (Beijing, Shanghai) are expensive, but others are very affordable.',
+      healthcare: 'Modern facilities in major cities. International health insurance is recommended for expats.',
+      safety: 'Very safe with low rates of violent crime.',
+      culture: 'Deeply historic yet rapidly modernizing. Strong emphasis on family, food, and collective harmony.'
+    },
     visas: [
       {
         id: 'z-visa',
@@ -865,7 +1036,14 @@ export const countries: Country[] = [
         description: 'For those taking up employment in China.',
         officialUrl: 'http://www.visaforchina.org/',
         benefits: ['Career growth', 'Cultural immersion', 'Competitive salaries'],
-        whoItIsFor: 'Professionals with a Chinese work permit.'
+        whoItIsFor: 'Professionals with a Chinese work permit.',
+        howToApply: [
+          'Secure a job offer from a company licensed to hire foreigners.',
+          'The employer applies for a Foreigner\'s Work Permit Notification.',
+          'Apply for the Z visa at a Chinese Visa Application Service Center.',
+          'Enter China and undergo a mandatory health check.',
+          'Convert the Z visa into a Residence Permit within 30 days of arrival.'
+        ]
       }
     ]
   },
@@ -876,6 +1054,12 @@ export const countries: Country[] = [
     isoCode: 'ru',
     landmark: 'https://images.unsplash.com/photo-1513326738677-b964603b136d?q=80&w=1000&auto=format&fit=crop',
     description: 'The largest country in the world with unique cultural and business ties.',
+    livingInCountry: {
+      costOfLiving: 'Moderate. Moscow and St. Petersburg are the most expensive.',
+      healthcare: 'Public healthcare is available; private clinics are preferred by expats in major cities.',
+      safety: 'Generally safe in major cities, though standard urban precautions apply.',
+      culture: 'Rich in literature, music, and history. Strong emphasis on hospitality and tradition.'
+    },
     visas: [
       {
         id: 'business-visa',
@@ -883,7 +1067,14 @@ export const countries: Country[] = [
         description: 'For business meetings and negotiations.',
         officialUrl: 'https://russia-visacentre.com/',
         benefits: ['Multiple entries', 'Up to 1 year validity', 'Business networking'],
-        whoItIsFor: 'Business professionals.'
+        whoItIsFor: 'Business professionals.',
+        howToApply: [
+          'Obtain an official invitation letter from a Russian company or the Ministry of Interior.',
+          'Complete the online visa application form.',
+          'Gather required documents (passport, photos, invitation).',
+          'Submit the application at a Russian Visa Center or Consulate.',
+          'Pay the visa fee and wait for processing.'
+        ]
       }
     ]
   },
@@ -894,6 +1085,12 @@ export const countries: Country[] = [
     isoCode: 'tr',
     landmark: 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?q=80&w=1000&auto=format&fit=crop',
     description: 'A bridge between Europe and Asia with a booming tourism sector.',
+    livingInCountry: {
+      costOfLiving: 'Low to moderate. Very affordable for those with foreign income.',
+      healthcare: 'High-quality private healthcare, especially in medical tourism hubs like Istanbul.',
+      safety: 'Generally safe, though typical tourist-related precautions apply in busy areas.',
+      culture: 'A blend of Eastern and Western traditions. Famous for hospitality, bazaars, and history.'
+    },
     visas: [
       {
         id: 'e-visa',
@@ -901,7 +1098,14 @@ export const countries: Country[] = [
         description: 'Fast online visa for tourism and trade.',
         officialUrl: 'https://www.evisa.gov.tr/en/',
         benefits: ['Instant approval', 'Low cost', 'Valid for 180 days'],
-        whoItIsFor: 'Tourists from eligible countries.'
+        whoItIsFor: 'Tourists from eligible countries.',
+        howToApply: [
+          'Visit the official Turkish e-Visa website.',
+          'Enter your nationality and passport details.',
+          'Pay the e-Visa fee online using a credit or debit card.',
+          'Download your e-Visa once the application is approved.',
+          'Print the e-Visa or keep a digital copy for border control.'
+        ]
       }
     ]
   },
@@ -912,6 +1116,12 @@ export const countries: Country[] = [
     isoCode: 'ae',
     landmark: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1000&auto=format&fit=crop',
     description: 'A global business hub with tax-free income and luxury living.',
+    livingInCountry: {
+      costOfLiving: 'High, especially in Dubai and Abu Dhabi. Tax-free income helps offset costs.',
+      healthcare: 'World-class healthcare facilities with mandatory health insurance for residents.',
+      safety: 'One of the safest countries in the world with very low crime rates.',
+      culture: 'Cosmopolitan and luxurious. A mix of traditional Emirati heritage and global influences.'
+    },
     visas: [
       {
         id: 'golden-visa',
@@ -919,7 +1129,14 @@ export const countries: Country[] = [
         description: 'Long-term residency for investors and talents.',
         officialUrl: 'https://u.ae/en/information-and-services/visa-and-emirates-id/residence-visas/golden-visa',
         benefits: ['10-year residency', '100% business ownership', 'No sponsor needed'],
-        whoItIsFor: 'Investors, entrepreneurs, and specialized talents.'
+        whoItIsFor: 'Investors, entrepreneurs, and specialized talents.',
+        howToApply: [
+          'Check your eligibility category (investor, talent, entrepreneur).',
+          'Apply for an initial entry permit via the ICP or GDRFA portal.',
+          'Undergo a medical fitness test in the UAE.',
+          'Submit your application for the Golden Visa residency.',
+          'Receive your 10-year residency visa and Emirates ID.'
+        ]
       },
       {
         id: 'green-visa',

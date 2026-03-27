@@ -34,12 +34,40 @@ export default function CountryDetail() {
     );
   }
 
+  const siteUrl = window.location.origin;
+  const countrySchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": `${country.name} Visa Guides & Eligibility`,
+    "description": country.description,
+    "mainEntity": {
+      "@type": "Country",
+      "name": country.name,
+      "description": country.description,
+      "image": country.landmark,
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": `${country.name} Visa Categories`,
+        "itemListElement": country.visas.map(visa => ({
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": visa.name,
+            "description": visa.description,
+            "url": `${siteUrl}/visa/${country.id}/${visa.id}`
+          }
+        }))
+      }
+    }
+  };
+
   return (
     <div className="pb-20">
       <SEO 
         title={`${country.name} Visa Guides & Eligibility`} 
         description={`Comprehensive visa guides and eligibility checks for ${country.name}. Learn about work, study, and visit visas for ${country.name}.`}
         keywords={`${country.name} visa, ${country.name} immigration, ${country.name} work permit, ${country.name} study visa`}
+        schemaData={countrySchema}
       />
       {/* Country Header */}
       <section className="relative h-[50vh] flex items-end px-6 overflow-hidden">
@@ -111,6 +139,34 @@ export default function CountryDetail() {
                   ))}
                 </div>
               </div>
+
+              {/* Living in Country Section */}
+              {country.livingInCountry && (
+                <div className="bg-white p-10 rounded-[2.5rem] shadow-xl shadow-slate-200 border border-slate-100">
+                  <h2 className="text-3xl font-bold text-slate-900 mb-8 flex items-center gap-3">
+                    <MapPin className="w-8 h-8 text-blue-600" />
+                    Living in {country.name}
+                  </h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100">
+                      <h3 className="font-bold text-slate-900 mb-2">💰 Cost of Living</h3>
+                      <p className="text-slate-600 text-sm leading-relaxed">{country.livingInCountry.costOfLiving}</p>
+                    </div>
+                    <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100">
+                      <h3 className="font-bold text-slate-900 mb-2">🏥 Healthcare</h3>
+                      <p className="text-slate-600 text-sm leading-relaxed">{country.livingInCountry.healthcare}</p>
+                    </div>
+                    <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100">
+                      <h3 className="font-bold text-slate-900 mb-2">🛡️ Safety</h3>
+                      <p className="text-slate-600 text-sm leading-relaxed">{country.livingInCountry.safety}</p>
+                    </div>
+                    <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100">
+                      <h3 className="font-bold text-slate-900 mb-2">🎭 Culture</h3>
+                      <p className="text-slate-600 text-sm leading-relaxed">{country.livingInCountry.culture}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Sidebar Info */}
