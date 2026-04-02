@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams, Link, useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
 import { CheckCircle2, Download, ArrowRight, Loader2, AlertCircle } from "lucide-react";
-import { collection, query, where, getDocs, limit } from "firebase/firestore";
+import { collection, query, where, getDocs, limit, doc, getDoc } from "firebase/firestore";
 import { db, auth } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 

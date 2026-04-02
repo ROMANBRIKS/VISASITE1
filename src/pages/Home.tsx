@@ -11,13 +11,15 @@ import {
   Users, 
   ChevronRight,
   CheckCircle2,
-  Download
+  Download,
+  Globe
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { countries } from "../data/countries";
 import { cn } from "../lib/utils";
 import { AdSpace } from "../components/AdSpace";
 
+import { HeroSlider } from "../components/HeroSlider";
 import { CinematicBanner } from "../components/CinematicBanner";
 
 export default function Home() {
@@ -232,12 +234,13 @@ export default function Home() {
         schemaData={homeSchema}
       />
       {/* Hero Section */}
-      <section className="relative h-[85vh] flex items-center px-6 overflow-hidden">
+      <section className="relative min-h-[60vh] md:h-[85vh] flex items-center px-6 overflow-hidden pt-12 md:pt-0">
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1436491865332-7a61a109c0f2?q=80&w=2000&auto=format&fit=crop" 
-            className="w-full h-full object-cover opacity-20"
-            alt="Travel background"
+            src="https://images.unsplash.com/photo-1436491865332-7a61a109c0f3?q=80&w=2000&auto=format&fit=crop" 
+            alt="Global Travel"
+            className="w-full h-full object-cover opacity-10"
+            referrerPolicy="no-referrer"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white" />
         </div>
@@ -333,13 +336,13 @@ export default function Home() {
                       <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <button 
                           onClick={() => navigate(`/visa/${suggestion.countryId}/${suggestion.visaId}`)}
-                          className="px-10 py-4 bg-blue-600 text-white rounded-2xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-100"
+                          className="px-6 md:px-10 py-4 bg-blue-600 text-white rounded-2xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-100"
                         >
                           View Visa Details
                         </button>
                         <button 
                           onClick={() => setSuggestion(null)}
-                          className="px-10 py-4 bg-slate-100 text-slate-600 rounded-2xl font-bold hover:bg-slate-200 transition-all"
+                          className="px-6 md:px-10 py-4 bg-slate-100 text-slate-600 rounded-2xl font-bold hover:bg-slate-200 transition-all"
                         >
                           Start Over
                         </button>
@@ -452,6 +455,74 @@ export default function Home() {
                   </div>
                 )}
               </AnimatePresence>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Travel & Tour Promo Section */}
+      <section className="px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="bg-slate-900 rounded-[3rem] overflow-hidden relative">
+            <div className="absolute inset-0 opacity-40">
+              <img 
+                src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80&w=2000" 
+                alt="Travel background"
+                className="w-full h-full object-cover"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/60 to-transparent" />
+            
+            <div className="relative z-10 p-6 md:p-20 grid md:grid-cols-2 gap-12 items-center">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+              >
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-wider mb-6 backdrop-blur-sm border border-blue-500/30">
+                  <Globe className="w-4 h-4" />
+                  New: Travel & Tour Advice
+                </div>
+                <h2 className="text-4xl md:text-6xl font-bold text-white mb-8 leading-tight">
+                  Beyond Visas. <br />
+                  <span className="text-blue-500">Travel with Confidence.</span>
+                </h2>
+                <p className="text-xl text-slate-300 mb-10 leading-relaxed">
+                  We've expanded! Get expert-verified travel advice, cultural insights, and safety tips from local experts on the ground.
+                </p>
+                <div className="flex flex-wrap gap-4">
+                  <Link 
+                    to="/travel"
+                    className="px-8 py-4 bg-blue-600 text-white rounded-2xl font-bold text-lg hover:bg-blue-700 transition-all shadow-xl shadow-blue-500/20 flex items-center gap-2"
+                  >
+                    Explore Travel Advice
+                    <ArrowRight className="w-5 h-5" />
+                  </Link>
+                </div>
+              </motion.div>
+              
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                className="hidden md:grid grid-cols-2 gap-4"
+              >
+                {[
+                  { icon: ShieldCheck, title: "Safety First", desc: "Verified local reports" },
+                  { icon: Users, title: "Local Experts", desc: "On-ground partnerships" },
+                  { icon: Clock, title: "Real-time", desc: "Up-to-date insights" },
+                  { icon: MapPin, title: "By Country", desc: "One by one activation" }
+                ].map((item, i) => (
+                  <div key={i} className="bg-white/10 backdrop-blur-md border border-white/10 p-6 rounded-3xl">
+                    <div className="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center text-white mb-4">
+                      <item.icon className="w-5 h-5" />
+                    </div>
+                    <h3 className="font-bold text-white mb-1">{item.title}</h3>
+                    <p className="text-xs text-slate-400">{item.desc}</p>
+                  </div>
+                ))}
+              </motion.div>
             </div>
           </div>
         </div>

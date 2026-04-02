@@ -86,7 +86,7 @@ export default function Chatbot() {
           speechConfig: {
             voiceConfig: { prebuiltVoiceConfig: { voiceName: "Zephyr" } },
           },
-          systemInstruction: "You are a Senior Officer at VisaPlatform. Be professional, warm, and extremely concise. CRITICAL: Always prioritize the user's well-being. Ask how they are doing before asking any visa questions. Acknowledge their feelings first before asking the next question. Ask only ONE question at a time.",
+          systemInstruction: "You are a Senior Officer at VisaPlatform. Be professional, warm, and extremely concise. The initial greeting already asks how the user is doing. Do not repeat the 'how are you doing' question. Focus on their visa needs unless they explicitly mention their feelings. Ask only ONE question at a time.",
         },
         callbacks: {
           onopen: () => {
@@ -136,7 +136,7 @@ export default function Chatbot() {
             You are a Senior Officer at VisaPlatform. Your persona is "Humanly Professional"—warm, expert, and highly efficient.
             
             CONVERSATIONAL RULES (CRITICAL):
-            0. HUMAN-FIRST: Always prioritize the user's well-being. If they haven't told you how they are doing, or if you're just starting, ask about their day/feelings before asking any visa questions.
+            0. HUMAN-FIRST: The initial greeting already asks how the user is doing. Do not repeat this question. Acknowledge their response to the greeting if they provided one, then move directly to assisting with their visa request.
             1. EXTREME CONCISE: One short sentence for acknowledgment, one short sentence for the question. No fluff.
             2. NO REDUNDANCY: If you say "Great choice," don't follow it with "I'd be happy to help you get there." Just move to the question.
             3. ACKNOWLEDGE & ASK: Acknowledge the feeling/choice briefly, then ask the next question immediately.
@@ -300,9 +300,19 @@ export default function Chatbot() {
                   <Send className="w-4 h-4" />
                 </button>
               </div>
-              <p className="text-[10px] text-slate-400 text-center mt-4 uppercase tracking-widest font-bold">
-                Expert Visa Guidance Platform
-              </p>
+              <div className="flex items-center justify-between mt-4">
+                <div className="w-6" /> {/* Spacer to center the text */}
+                <p className="text-[10px] text-slate-400 uppercase tracking-widest font-bold">
+                  Expert Visa Guidance Platform
+                </p>
+                <button 
+                  onClick={() => setIsOpen(false)}
+                  className="p-1 hover:bg-slate-100 rounded-lg text-slate-400 transition-colors"
+                  title="Minimize Chat"
+                >
+                  <ChevronDown className="w-4 h-4" />
+                </button>
+              </div>
             </div>
           </motion.div>
         )}

@@ -15,7 +15,10 @@ export const AdSpace: React.FC<AdSpaceProps> = ({ type = 'banner', className = '
 
   return (
     <div className={`relative overflow-hidden rounded-3xl border border-dashed border-slate-200 bg-slate-50/50 flex flex-col items-center justify-center p-6 group transition-all hover:bg-slate-50 ${styles[type]} ${className}`}>
-      <div className="absolute top-2 right-4 text-[10px] font-bold text-slate-300 uppercase tracking-widest">Advertisement</div>
+      <div className="absolute top-2 right-4 text-[10px] font-bold text-slate-300 uppercase tracking-widest flex items-center gap-1">
+        <span>Banner</span>
+        <span className="text-xs">🚩</span>
+      </div>
       <div className="flex flex-col items-center text-center space-y-2">
         <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 group-hover:scale-110 transition-transform">
           <Info className="w-5 h-5" />

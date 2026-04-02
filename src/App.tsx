@@ -34,6 +34,8 @@ import Auth from "./pages/Auth";
 import Countries from "./pages/Countries";
 import Guides from "./pages/Guides";
 import CountryGuides from "./pages/CountryGuides";
+import TravelTour from "./pages/TravelTour";
+import TravelCountryDetail from "./pages/TravelCountryDetail";
 import Chatbot from "./components/Chatbot";
 import { AdSpace } from "./components/AdSpace";
 
@@ -50,8 +52,10 @@ function Navbar() {
 
   return (
     <nav className={cn(
-      "fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-6 py-4",
-      isScrolled ? "bg-white/80 backdrop-blur-md shadow-sm" : "bg-transparent"
+      "fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-6 py-3 md:py-4",
+      isScrolled 
+        ? "bg-white/40 backdrop-blur-xl shadow-sm border-b border-slate-200/30" 
+        : "bg-white/5 backdrop-blur-md border-b border-white/5"
     )}>
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 group">
@@ -67,7 +71,8 @@ function Navbar() {
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-8">
           <Link to="/" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Home</Link>
-          <Link to="/countries" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Countries</Link>
+          <Link to="/countries" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Visas</Link>
+          <Link to="/travel" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Travel & Tour</Link>
           <Link to="/guides" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Guides</Link>
           <Link to="/dashboard" className="flex items-center gap-2 px-4 py-2 bg-slate-900 text-white rounded-full text-sm font-medium hover:bg-slate-800 transition-all">
             <UserIcon className="w-4 h-4" />
@@ -94,7 +99,8 @@ function Navbar() {
             className="absolute top-full left-0 right-0 bg-white border-t border-slate-100 p-6 flex flex-col gap-4 md:hidden shadow-xl"
           >
             <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-slate-900">Home</Link>
-            <Link to="/countries" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-slate-900">Countries</Link>
+            <Link to="/countries" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-slate-900">Visas</Link>
+            <Link to="/travel" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-slate-900">Travel & Tour</Link>
             <Link to="/guides" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-slate-900">Guides</Link>
             <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-slate-900">Dashboard</Link>
           </motion.div>
@@ -117,16 +123,16 @@ function Footer() {
           </Link>
           <p className="text-slate-500 max-w-sm leading-relaxed">
             Helping 70,000+ applicants find their way to new opportunities. 
-            Providing expert guidance and eligibility checks for 16 major countries.
+            Providing expert guidance and travel advice for major countries.
           </p>
         </div>
         <div>
           <h4 className="font-bold text-slate-900 mb-6">Quick Links</h4>
           <ul className="space-y-4">
             <li><Link to="/" className="text-slate-500 hover:text-blue-600 transition-colors">Home</Link></li>
-            <li><Link to="/countries" className="text-slate-500 hover:text-blue-600 transition-colors">Countries</Link></li>
+            <li><Link to="/countries" className="text-slate-500 hover:text-blue-600 transition-colors">Visas</Link></li>
+            <li><Link to="/travel" className="text-slate-500 hover:text-blue-600 transition-colors">Travel & Tour</Link></li>
             <li><Link to="/guides" className="text-slate-500 hover:text-blue-600 transition-colors">Guides</Link></li>
-            <li><Link to="/dashboard" className="text-slate-500 hover:text-blue-600 transition-colors">Dashboard</Link></li>
           </ul>
         </div>
         <div>
@@ -151,11 +157,12 @@ export default function App() {
     <Router>
       <div className="min-h-screen bg-white font-sans text-slate-900 selection:bg-blue-100 selection:text-blue-900">
         <Navbar />
-        <main className="pt-20">
-          <div className="max-w-7xl mx-auto px-6 pt-8">
+        <main className="pt-20 md:pt-24">
+          <div className="max-w-7xl mx-auto px-6 pb-16 md:pb-20">
             <AdSpace type="banner" />
           </div>
-          <Routes>
+          <div className="relative">
+            <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/countries" element={<Countries />} />
             <Route path="/guides" element={<Guides />} />
@@ -164,11 +171,17 @@ export default function App() {
             <Route path="/visa/:countryId/:visaId" element={<VisaDetail />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/checkout/success" element={<CheckoutSuccess />} />
+            <Route path="/travel" element={<TravelTour />} />
+            <Route path="/travel/:countryId" element={<TravelCountryDetail />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/auth" element={<Auth />} />
           </Routes>
+          </div>
         </main>
         <Footer />
+        <div className="max-w-7xl mx-auto px-6 py-12">
+          <AdSpace type="banner" />
+        </div>
         <Chatbot />
         <Toaster position="top-center" richColors />
       </div>
